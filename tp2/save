@@ -1,0 +1,28 @@
+H1:matrix([cos(x1), -sin(x1), 0, a1*cos(x1)],[sin(x1), cos(x1), 0,a1*sin(x1)],[0, 0, 1, d1],[0, 0, 0, 1]);
+
+H2:matrix([cos(x2), sin(x2), 0, a2*cos(x2)],[sin(x2), -cos(x2), 0,
+          a2*sin(x2)],[0, 0, -1, 0],[0, 0, 0, 1]);
+
+H3:matrix([1, 0, 0, 0],[0, 1, 0, 0],[0, 0, 1, d3],[0, 0, 0, 1]);
+
+H4:matrix([cos(x4), -sin(x4), 0, 0],[sin(x4), cos(x4), 0, 0],[0, 0, 1, d4],[0, 0, 0, 1]);
+
+H02:H1.H2;
+
+H02:trigreduce(H02);
+
+H02;
+
+H03:trigreduce(H02.H3);
+
+H04:trigreduce(H03.H4);
+
+vpos:submatrix(4,H04,1,2,3);
+
+x2y2:trigreduce(expand((row(vpos,1)^2+row(vpos,2)^2)));
+
+expand(x2y2);
+
+vori:submatrix(4,H04,4);
+
+
