@@ -232,19 +232,22 @@ avec $\alpha = \mathrm{atan2}(k_2,k_1)$
 \]
 
 
-Pour $\theta_4$
+Pour $\theta^*_4$, on peut considérer que $\psi$ s'exprime :
+
 \[ 
   MGDori =
   \begin{pmatrix}
-    \cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+    \cos (\overbrace{\theta^*_1+\theta^*_2-\theta^*_4}^{\psi}) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
     \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
     0 & 0 & -1\\
   \end{pmatrix}
 \]
 
+On obtient alors que $\theta^*_4 = \theta^*_1+\theta^*_2-\psi$.
+
 \subsection{Ce modèle admet-il une solution unique?}
 
-Non, ce modèle admet deux solutions à cause de $\theta_2$ qui est égal à plus ou moins $\arccos(\frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2})$.
+Non, ce modèle admet deux solutions à cause de $\theta^*_2$ qui est égal à plus ou moins $\arccos(\frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2})$.
 
 \section{Trajectoire du robot}
 
