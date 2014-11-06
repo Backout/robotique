@@ -1,0 +1,261 @@
+\documentclass[]{article}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+\fi
+\usepackage{listings}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\else
+  \usepackage[unicode=true,
+              colorlinks=true,
+              linkcolor=blue]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+\title{TD1. Étude du robot Scara}
+\author{Axel BENEULT LEFAUCHEUX}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Établir le modèle géométrique direct en position et en
+rotation.}
+
+On utilise la table de Denavit et Hertenberg pour définir les matrices :
+$H_1$, $H_2$, $H_3$, $H_4$.
+
+\[ 
+  H_1 =
+  \begin{pmatrix}
+     \cos (\theta^*_1) & -\sin (\theta^*_1) & 0 & a_1 \cos (\theta^*_1) \\
+     \sin (\theta^*_1) & \cos (\theta^*_1) & 0 & a_1 \sin (\theta^*_1) \\
+     0 & 0 & 1 & d_1 \\
+     0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+
+\[ 
+  H_2 =
+  \begin{pmatrix}
+    \cos (\theta^*_2) & \sin (\theta^*_2) & 0 & a_2 \cos (\theta^*_2) \\
+    \sin (\theta^*_2) & -\cos (\theta^*_2) & 0 & a_2 \sin (\theta^*_2) \\
+    0 & 0 & -1 & 0 \\
+    0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+
+\[ 
+  H_3 =
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & d^*_3 \\
+    0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+
+\[ 
+  H_4 =
+  \begin{pmatrix}
+    \cos (\theta^*_4) & -\sin (\theta^*_4) & 0 & 0 \\
+    \sin (\theta^*_4) & \cos (\theta^*_4) & 0 & 0 \\
+    0 & 0 & 1 & d_4 \\
+    0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+
+En calculant le produit matricielle de ces matrices on obtient une
+matrice contenant le modèle géométrique direct.
+
+\[
+  H_0^4 = H_1.H_2.H_3.H_4 
+\]
+
+\[ 
+  H_0^4 =
+  \begin{pmatrix}
+    \cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 & a_1 \cos (\theta^*_1)+a_2 \cos (\theta^*_1+\theta^*_2) \\
+    \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 & a_1 \sin (\theta^*_1)+a_2 \sin (\theta^*_1+\theta^*_2) \\
+    0 & 0 & -1 & d_1-d^*_3-d_4 \\
+    0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\]
+
+A partir de la matrice $H_0^4$ on peut
+déduire le modèle géométrique direct en position (MGDpos) et en
+orientation (MGDori)
+
+\[ 
+  MGDpos =
+  \begin{pmatrix}
+    a_1 \cos (\theta^*_1)+a_2 \cos(\theta^*_1+\theta^*_2) \\
+    a_1 \sin (\theta^*_1)+a_2 \sin(\theta^*_1+\theta^*_2) \\
+    d_1-d^*_3-d_4 \\
+  \end{pmatrix}
+\]
+
+\[ 
+  MGDori =
+  \begin{pmatrix}
+    \cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+    \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+    0 & 0 & -1\\
+  \end{pmatrix}
+\]
+
+\section{Inverser le modèle géométrique en position.}
+
+Pour inverser le modèle géométrique en position on utilise une méthode
+analytique. Depuis le MGD en position on peut en déduire que :
+
+\[
+  \begin{pmatrix}
+    X\\
+    Y\\
+    Z\\
+  \end{pmatrix}
+  = f
+  \begin{pmatrix}
+    \theta^*_1 \\
+    \theta^*_2 \\
+    d^*_3 \\
+  \end{pmatrix}
+\]
+
+\[
+  \begin{pmatrix}
+    X\\
+    Y\\
+    Z\\
+  \end{pmatrix}
+  = 
+  \begin{pmatrix}
+    a_1 \cos (\theta^*_1)+a_2 \cos(\theta^*_1+\theta^*_2) \\
+    a_1 \sin (\theta^*_1)+a_2 \sin(\theta^*_1+\theta^*_2) \\
+    d_1-d^*_3-d_4 \\
+  \end{pmatrix}
+\]
+
+Cherchant $\theta^*_1$, $\theta^*_2$ et $d^*_3$ il suffit de trouver
+$f^{-1}$.
+
+\begin{equation}
+  Z = d_1-d^*_3-d_4
+  \label{zeqd}
+\end{equation}
+
+L'équation \eqref{zeqd} nous permet de déduire directement que : 
+\[
+  d^*_3 = d_1-d_4-Z
+\]
+
+Pour exprimer $\theta^*_2$ on prend la somme de $X^2$ et
+$Y^2$ pour pouvoir faire sortir un $\cos(\theta^*_2)$ :
+
+\[
+  X^2 + Y^2 ⁼ a^2_1 + a^2_2 + 2 a_1 a_2 \cos(\theta^*_2) 
+\]
+
+\[ 
+  \cos(\theta^*_2) = \frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2} 
+\]
+
+On peut donc dire que si :
+$| \frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2} | \leq 1$ alors
+$\theta^*_2 = \pm \arccos(\frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2})$. 
+
+Pour déterminer $\theta^*_1$, on considère $\theta^*_2$ comme connu.
+
+\[ 
+  X = a_1\cos(\theta^*_1)+a_2\cos(\theta^*_2)\cos(\theta^*_1)-a_2\sin(\theta^*_2)\sin(\theta^*_1)
+\]
+\[
+  Y = a_1\sin(\theta^*_1)+a_2\cos(\theta^*_2)\cos(\theta^*_1)+a_2\sin(\theta^*_1)\cos(\theta^*_2)
+\]
+
+\[ 
+  X = \underbrace{a_1\cos(\theta^*_1)+a_2\cos(\theta^*_2)}_{k_1}\cos(\theta^*_1)-\underbrace{a_2\sin(\theta^*_2)}_{k_2}\sin(\theta^*_1)
+\]
+\[
+  Y = \underbrace{a_1\cos(\theta^*_1)+a_2\cos(\theta^*_2)}_{k_1}\sin(\theta^*_1)+\underbrace{a_2\sin(\theta^*_2)}_{k_2}\cos(\theta^*_1)
+\]
+
+\[ 
+  X = k_1\cos(\theta^*_1)-k_2\sin(\theta^*_1)
+\]
+\[ 
+  Y = k_2\cos(\theta^*_1)+k_1\sin(\theta^*_1)
+\]
+
+Si on pose $r = \sqrt{k_1^2+k_2^2}$ on peut écrire 
+\[
+\begin{array}{lcl} 
+  \frac{x}{r} & = & \cos(\alpha)\cos(\theta_1)-\sin(\alpha)\sin(\theta_1)\\
+  & = & \cos(\theta_1+\alpha)
+\end{array}
+\]
+
+\[
+\begin{array}{lcl} 
+  \frac{y}{r} & = & \sin(\alpha)\cos(\theta_1)+\cos(\alpha)\sin(\theta_1)\\
+  & = & \sin(\theta_1+\alpha)
+\end{array}
+\]
+
+avec $\alpha = \mathrm{atan2}(k_2,k_1)$
+
+\[
+\begin{array}{lcl} 
+  \Rightarrow \theta_1 + \alpha & = & \mathrm{atan2}(y,x)\\
+  \Rightarrow \theta_1 & = & \mathrm{atan2}(y,x) - \mathrm{atan2}(k_2,k_1)
+\end{array}
+\]
+
+
+Pour $\theta_4$
+\[ 
+  MGDori =
+  \begin{pmatrix}
+    \cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+    \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+    0 & 0 & -1\\
+  \end{pmatrix}
+\]
+
+\subsection{Ce modèle admet-il une solution unique?}
+
+Non, ce modèle admet deux solutions à cause de $\theta_2$ qui est égal à plus ou moins $\arccos(\frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2})$.
+
+\section{Trajectoire du robot}
+
+\subsection{Expliquer ce principe}
+
+
+
+\subsection{Expliquer pourquoi il est nécessaire de choisir des vitesses
+et accélérations initiales et finales nulles.}
+
+\subsection{Donner l'algorithme qui permet de déterminer les
+coefficients des polynômes d'ordre 5}
+
+\end{document}
