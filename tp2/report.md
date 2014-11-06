@@ -14,9 +14,9 @@ On utilise la table de Denavit et Hertenberg pour définir les matrices : H~1~, 
 \[ 
 H~1~ = 
 \begin{pmatrix}
- \cos (\text{$\theta $1}) & -\sin (\text{$\theta $1}) & 0 & \text{a1} \cos (\text{$\theta $1}) \\
- \sin (\text{$\theta $1}) & \cos (\text{$\theta $1}) & 0 & \text{a1} \sin (\text{$\theta $1}) \\
- 0 & 0 & 1 & \text{d1} \\
+ \cos (\theta^*_1) & -\sin (\theta^*_1) & 0 & a_1 \cos (\theta^*_1) \\
+ \sin (\theta^*_1) & \cos (\theta^*_1) & 0 & a_1 \sin (\theta^*_1) \\
+ 0 & 0 & 1 & d_1 \\
  0 & 0 & 0 & 1 \\
 \end{pmatrix}
 \]
@@ -24,8 +24,8 @@ H~1~ =
 \[ 
 H~2~ = 
 \begin{pmatrix}
- \cos (\text{$\theta $2}) & \sin (\text{$\theta $2}) & 0 & \text{a2} \cos (\text{$\theta $2}) \\
- \sin (\text{$\theta $2}) & -\cos (\text{$\theta $2}) & 0 & \text{a2} \sin (\text{$\theta $2}) \\
+ \cos (\theta^*_2) & \sin (\theta^*_2) & 0 & a_2 \cos (\theta^*_2) \\
+ \sin (\theta^*_2) & -\cos (\theta^*_2) & 0 & a_2 \sin (\theta^*_2) \\
  0 & 0 & -1 & 0 \\
  0 & 0 & 0 & 1 \\
 \end{pmatrix}
@@ -36,7 +36,7 @@ H~3~ =
 \begin{pmatrix}
  1 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 \\
- 0 & 0 & 1 & \text{d3} \\
+ 0 & 0 & 1 & d^*_3 \\
  0 & 0 & 0 & 1 \\
 \end{pmatrix}
 \]
@@ -44,9 +44,9 @@ H~3~ =
 \[ 
 H~4~ = 
 \begin{pmatrix}
- \cos (\text{$\theta $4}) & -\sin (\text{$\theta $4}) & 0 & 0 \\
- \sin (\text{$\theta $4}) & \cos (\text{$\theta $4}) & 0 & 0 \\
- 0 & 0 & 1 & \text{d4} \\
+ \cos (\theta^*_4) & -\sin (\theta^*_4) & 0 & 0 \\
+ \sin (\theta^*_4) & \cos (\theta^*_4) & 0 & 0 \\
+ 0 & 0 & 1 & d_4 \\
  0 & 0 & 0 & 1 \\
  \end{pmatrix}
 \]
@@ -60,11 +60,9 @@ H~0~^4^ = H~1~.H~2~.H~3~.H~4~
 \[ 
 H~0~^4^ = 
 \begin{pmatrix}
-\cos (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & \sin (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & 0 & \text{a1} \cos (\text{$\theta $1})+\text{a2} \cos
-   (\text{$\theta $1}+\text{$\theta $2}) \\
- \sin (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & -\cos (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & 0 & \text{a1} \sin (\text{$\theta $1})+\text{a2} \sin
-   (\text{$\theta $1}+\text{$\theta $2}) \\
- 0 & 0 & -1 & \text{d1}-\text{d3}-\text{d4} \\
+\cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 & a_1 \cos (\theta^*_1)+a_2 \cos (\theta^*_1+\theta^*_2) \\
+ \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 & a_1 \sin (\theta^*_1)+a_2 \sin (\theta^*_1+\theta^*_2) \\
+ 0 & 0 & -1 & d_1-d^*_3-d_4 \\
  0 & 0 & 0 & 1 \\
  \end{pmatrix}
 \]
@@ -74,17 +72,17 @@ A partir de la matrice H~0~^4^ on peut déduire le modèle géométrique direct 
 \[ 
 MGDpos = 
 \begin{pmatrix}
-\text{a1} \cos (\text{$\theta $1})+\text{a2} \cos(\text{$\theta $1}+\text{$\theta $2}) \\
-\text{a1} \sin (\text{$\theta $1})+\text{a2} \sin(\text{$\theta $1}+\text{$\theta $2}) \\
-\text{d1}-\text{d3}-\text{d4} \\
+a_1 \cos (\theta^*_1)+a_2 \cos(\theta^*_1+\theta^*_2) \\
+a_1 \sin (\theta^*_1)+a_2 \sin(\theta^*_1+\theta^*_2) \\
+d_1-d^*_3-d_4 \\
 \end{pmatrix}
 \]
 
 \[ 
 MGDori = 
 \begin{pmatrix}
-\cos (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & \sin (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & 0 \\
- \sin (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & -\cos (\text{$\theta $1}+\text{$\theta $2}-\text{$\theta $4}) & 0 \\
+\cos (\theta^*_1+\theta^*_2-\theta^*_4) & \sin (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
+ \sin (\theta^*_1+\theta^*_2-\theta^*_4) & -\cos (\theta^*_1+\theta^*_2-\theta^*_4) & 0 \\
  0 & 0 & -1\\
  \end{pmatrix}
 \]
@@ -96,40 +94,51 @@ Pour inverser le modèle géométrique en position on utilise une méthode analy
 
 \[ 
 \begin{pmatrix}
-\text{X}\\
-\text{Y}\\
-\text{Z}\\
+X\\
+Y\\
+Z\\
 \end{pmatrix} 
 = 
 f
 \begin{pmatrix}
-\text{a1} \cos (\text{$\theta $1})+\text{a2} \cos(\text{$\theta $1}+\text{$\theta $2}) \\
-\text{a1} \sin (\text{$\theta $1})+\text{a2} \sin(\text{$\theta $1}+\text{$\theta $2}) \\
-\text{d1}-\text{d3}-\text{d4} \\
+a_1 \cos (\theta^*_1)+a_2 \cos(\theta^*_1+\theta^*_2) \\
+a_1 \sin (\theta^*_1)+a_2 \sin(\theta^*_1+\theta^*_2) \\
+d_1-d^*_3-d_4 \\
 \end{pmatrix}
 \]
 
-Cherchant \text{$\theta $1}, \text{$\theta $2} et \text{d3} il suffit de trouver f^-1^.
+Cherchant $\theta^*_1$, $\theta^*_2$ et d^*^~3~ il suffit de trouver f^-1^.
 
 \begin{equation}
-Z = d1-d3-d4
+Z = d_1-d^*_3-d_4
 \label{zeqd}
 \end{equation}
 
 L'équation \eqref{zeqd} nous permet de déduire directement que :
 \[
-	d3 = d1-d4-Z
+	d^*^~3~ = d~1~-d~4~-Z
 \]
 
-Pour exprimer \text{$\theta $2} on prend la somme de X^2^ et Y^2^ pour pouvoir faire sortir un $\cos(\text{$\theta $2})$ : 
-
-\[
-\text{X}^2^ + \text{Y}^2^ = \text{a1}^2^+\text{a2}^2^+2 \text{a1} \text{a2} \cos (\text{$\theta $2})
-\]
+Pour exprimer $\theta^*_2$ on prend la somme de X^2^ et Y^2^ pour pouvoir faire sortir un $\cos(\theta^*_2)$ : 
 
 \[
-\cos (\text{$\theta $2}) = \frac{ l\text{X}^2^+\text{Y}^2^-\text{a1}^2^-\text{a2}^2^ }{ 2\text{a1}\text{a2} } 
+X^2^ + Y^2^ = a~1~^2^+a~2~^2^+2 a~1~ a~2~ \cos (\theta ^*^~2~)
 \]
+
+\[
+\cos (\theta ^*^~2~) = \frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2} 
+\]
+
+On peut donc dire que si : $| \frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2} | \leq 1$ alors $\theta^*_2 = \pm \arccos(\frac{X^2+Y^2-a_1^2-a_2^2}{2 a_1 a_2})$.
+Pour déterminer $\theta^*_1$, on considère $\theta^*_2$ comme connu.
+
+\[
+X = a~1~ \cos (\theta ^*^~1~)+a~2~ \cos(\theta ^*^~2~) \cos(\theta ^*^~1~) - a~2~ \sin(\theta ^*^~2~) \sin(\theta ^*^~1~)
+
+Y = a~1~ \sin (\theta ^*^~1~)+a~2~ \cos(\theta ^*^~2~) \cos(\theta ^*^~1~) - a~2~ \sin(\theta ^*^~2~) \sin(\theta ^*^~1~)
+
+\]
+
 
 Ce modèle admet-il une solution unique?
 ---------------------------------------
