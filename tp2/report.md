@@ -6,7 +6,7 @@
 
 
 Établir le modèle géométrique direct en position et en rotation.
-===================================================================
+================================================================
 
 On utilise la table de Denavit et Hertenberg pour définir les matrices : H~1~, H~2~, H~3~, H~4~.
 
@@ -20,7 +20,6 @@ H~1~ =
  0 & 0 & 0 & 1 \\
 \end{pmatrix}
 \]
-
 
 \[ 
 H~2~ = 
@@ -92,6 +91,45 @@ MGDori =
 
 Inverser le modèle géométrique en position.
 ===========================================
+
+Pour inverser le modèle géométrique en position on utilise une méthode analytique. Depuis le MGD en position on peut en déduire que :
+
+\[ 
+\begin{pmatrix}
+\text{X}\\
+\text{Y}\\
+\text{Z}\\
+\end{pmatrix} 
+= 
+f
+\begin{pmatrix}
+\text{a1} \cos (\text{$\theta $1})+\text{a2} \cos(\text{$\theta $1}+\text{$\theta $2}) \\
+\text{a1} \sin (\text{$\theta $1})+\text{a2} \sin(\text{$\theta $1}+\text{$\theta $2}) \\
+\text{d1}-\text{d3}-\text{d4} \\
+\end{pmatrix}
+\]
+
+Cherchant \text{$\theta $1}, \text{$\theta $2} et \text{d3} il suffit de trouver f^-1^.
+
+\begin{equation}
+Z = d1-d3-d4
+\label{zeqd}
+\end{equation}
+
+L'équation \eqref{zeqd} nous permet de déduire directement que :
+\[
+	d3 = d1-d4-Z
+\]
+
+Pour exprimer \text{$\theta $2} on prend la somme de X^2^ et Y^2^ pour pouvoir faire sortir un $\cos(\text{$\theta $2})$ : 
+
+\[
+\text{X}^2^ + \text{Y}^2^ = \text{a1}^2^+\text{a2}^2^+2 \text{a1} \text{a2} \cos (\text{$\theta $2})
+\]
+
+\[
+\cos (\text{$\theta $2}) = \frac{ l\text{X}^2^+\text{Y}^2^-\text{a1}^2^-\text{a2}^2^ }{ 2\text{a1}\text{a2} } 
+\]
 
 Ce modèle admet-il une solution unique?
 ---------------------------------------
