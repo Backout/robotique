@@ -253,12 +253,16 @@ Non, ce modèle admet deux solutions à cause de $\theta^*_2$ qui est égal à p
 
 \subsection{Expliquer ce principe}
 
-
+Pour générer une trajectoire articulaire il faut exprimer la trajectoire $q_i(t)$ à l'aide d'un polynôme. Si on ne considérait que la position initiale et la position finale nous ne pourrions pas obtenir autre chose qu'une trajectoire linéaire(une droite passant pas les deux positions). Pour adoucir la trajectoire il faut utiliser un polynôme avec un ordre plus grand. Nous allons donc prendre un polynôme d'ordre cinq. Nous aurons alors six équations : positions, vitesses et accélération initiales et finales pour six coefficients issus du polynôme d'ordre cinq. On obtient alors un système à six inconnues et à six équations.
 
 \subsection{Expliquer pourquoi il est nécessaire de choisir des vitesses
 et accélérations initiales et finales nulles.}
 
+Pendent le mouvement la vitesse et l’accélération varient, mais à l'état initial comme à l'état final, le robot est immobile et à la position voulue. C'est pourquoi les vitesses et accélérations initiales et finales sont nulles.
+
 \subsection{Donner l'algorithme qui permet de déterminer les
 coefficients des polynômes d'ordre 5}
+
+Il suffit de poser le système composé des équations de positions, vitesses, accélérations initiales et finales, puis de le résoudre afin d'obtenir les coefficients du polynôme de degré cinq.
 
 \end{document}
